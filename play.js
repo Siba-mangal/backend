@@ -22,11 +22,31 @@
 
 //Object
 
-const person = {
-  name: "Siba",
-  age: 29,
-  greet() {
-    console.log("Hi, I am " + this.name);
-  },
-};
-person.greet();
+// const person = {
+//   name: "Siba",
+//   age: 29,
+//   greet() {
+//     console.log("Hi, I am " + this.name);
+//   },
+// };
+// person.greet();
+
+class Student {
+  constructor(name, age, mark) {
+    this.name = name;
+    this.age = age;
+    this.mark = mark;
+  }
+  setPlacementAge(minPlacementAge) {
+    return (miniMarks) => {
+      if (this.mark > miniMarks && this.age > minPlacementAge) {
+        console.log(this.name + " is ready for placement");
+      } else {
+        console.log(this.name + " is not ready for placement");
+      }
+    };
+  }
+}
+
+const Yash = new Student("yash", 25, 35);
+const siba = new Student("siba", 23, 100);
