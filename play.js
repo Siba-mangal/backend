@@ -31,22 +31,63 @@
 // };
 // person.greet();
 
-class Student {
-  constructor(name, age, mark) {
-    this.name = name;
-    this.age = age;
-    this.mark = mark;
-  }
-  setPlacementAge(minPlacementAge) {
-    return (miniMarks) => {
-      if (this.mark > miniMarks && this.age > minPlacementAge) {
-        console.log(this.name + " is ready for placement");
-      } else {
-        console.log(this.name + " is not ready for placement");
-      }
-    };
-  }
-}
+// class Student {
+//   constructor(name, age, mark) {
+//     this.name = name;
+//     this.age = age;
+//     this.mark = mark;
+//   }
+//   setPlacementAge(minPlacementAge) {
+//     return (miniMarks) => {
+//       if (this.mark > miniMarks && this.age > minPlacementAge) {
+//         console.log(this.name + " is ready for placement");
+//       } else {
+//         console.log(this.name + " is not ready for placement");
+//       }
+//     };
+//   }
+// }
 
-const Yash = new Student("yash", 25, 35);
-const siba = new Student("siba", 23, 100);
+// const Yash = new Student("yash", 25, 35);
+// const siba = new Student("siba", 23, 100);
+// const Yash = new Student("yash", 25, 35);
+// const siba = new Student("siba", 23, 100);
+
+// Yash.setPlacementAge(18)(40);
+
+// const food = ["apple ", "oranges ", " ", " mango ", " ", " lemon "];
+// console.log(
+//   food.map((f) => {
+//     if (f === " ") {
+//       f = "empty string";
+//     }
+//     return f;
+//   })
+// );
+
+// async function example() {
+//   console.log("a");
+
+//   console.log("b");
+//   let promise = new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("c"), 3000);
+//   });
+
+//   const promise2 = new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("d"), 0);
+//   });
+//   let c = await promise;
+//   let d = await promise2;
+//   console.log(c);
+//   console.log(d);
+//   console.log("e");
+// }
+// example();
+
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  console.log("Siba Prasad Mangal");
+});
+
+server.listen(4000);
