@@ -85,37 +85,65 @@
 // example();
 
 const http = require("http");
+const fs = require("fs");
+const { buffer } = require("stream/consumers");
 
 const server = http.createServer((req, res) => {
   const url = req.url;
+  const method = req.method;
+
   if (url === "/") {
+    // const msg = fs.readFile("message.txt");
+    // console.log(msg);
+    const data = fs.readFileSync("message.txt", "utf8");
+
     res.write("<html>");
-    res.write("<head><title>My first page</title></head>");
-    res.write("<body><h1>Hello from my Nodejs</h1></body>");
+    res.write("<head><title>Enter Message</title></head>");
+    res.write(`<p>${data.toString()}</p>`);
+    res.write(
+      "<body><p></p><form action='/message' method='POST'><input type='test' name='message'><button type='submit'>Add</button></form></body>"
+    );
     res.write("</html>");
-    res.end();
+    return res.end();
   }
-  if (url === "/home") {
-    res.write("<html>");
-    res.write("<head><title>My first page</title></head>");
-    res.write("<body><h1>Welcome home</h1></body>");
-    res.write("</html>");
-    res.end();
+  if (url === "/message" && method === "POST") {
+    const body = [];
+    req.on("data", (chunk) => {
+      console.log(chunk);
+      body.push(chunk);
+    });
+    return req.on("end", () => {
+      const parseBody = Buffer.concat(body).toString();
+      const message = parseBody.split("=")[1];
+      fs.writeFile("message.txt", message, (err) => {
+        res.statusCode = 302;
+        res.setHeader("Location", "/");
+        return res.end();
+      });
+    });
   }
-  if (url === "/about") {
-    res.write("<html>");
-    res.write("<head><title>My first page</title></head>");
-    res.write("<body><h1>Welcome about page</h1></body>");
-    res.write("</html>");
-    res.end();
-  }
-  if (url === "/node") {
-    res.write("<html>");
-    res.write("<head><title>My first page</title></head>");
-    res.write("<body><h1>Welcome to my Node Js project</h1></body>");
-    res.write("</html>");
-    res.end();
-  }
+
+  // if (url === "/home") {
+  //   res.write("<html>");
+  //   res.write("<head><title>My first page</title></head>");
+  //   res.write("<body><h1>Welcome home</h1></body>");
+  //   res.write("</html>");
+  //   res.end();
+  // }
+  // if (url === "/about") {
+  //   res.write("<html>");
+  //   res.write("<head><title>My first page</title></head>");
+  //   res.write("<body><h1>Welcome about page</h1></body>");
+  //   res.write("</html>");
+  //   res.end();
+  // }
+  // if (url === "/node") {
+  //   res.write("<html>");
+  //   res.write("<head><title>My first page</title></head>");
+  //   res.write("<body><h1>Welcome to my Node Js project</h1></body>");
+  //   res.write("</html>");
+  //   res.end();
+  // }
 
   res.setHeader("Content-Type", "test/html");
 });
