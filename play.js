@@ -87,7 +87,37 @@
 const http = require("http");
 
 const server = http.createServer((req, res) => {
-  console.log("Siba Prasad Mangal");
+  const url = req.url;
+  if (url === "/") {
+    res.write("<html>");
+    res.write("<head><title>My first page</title></head>");
+    res.write("<body><h1>Hello from my Nodejs</h1></body>");
+    res.write("</html>");
+    res.end();
+  }
+  if (url === "/home") {
+    res.write("<html>");
+    res.write("<head><title>My first page</title></head>");
+    res.write("<body><h1>Welcome home</h1></body>");
+    res.write("</html>");
+    res.end();
+  }
+  if (url === "/about") {
+    res.write("<html>");
+    res.write("<head><title>My first page</title></head>");
+    res.write("<body><h1>Welcome about page</h1></body>");
+    res.write("</html>");
+    res.end();
+  }
+  if (url === "/node") {
+    res.write("<html>");
+    res.write("<head><title>My first page</title></head>");
+    res.write("<body><h1>Welcome to my Node Js project</h1></body>");
+    res.write("</html>");
+    res.end();
+  }
+
+  res.setHeader("Content-Type", "test/html");
 });
 
-server.listen(4000);
+server.listen(3000);
