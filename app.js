@@ -1,18 +1,25 @@
 const http = require("http");
 
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("In thee middleware");
-  next();
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use("/add-product", (req, res, next) => {
+  res.sendFile(
+    '<form action="/product" method="POST"><input type="text" name="title"><input type="number" name="productCount" min="1" max="100"><button type="submit">Add</button> </form>'
+  );
 });
 
-app.use((req, res, next) => {
-  console.log("In thee middleware next");
-  // res.send("<h1>hello to node js </h1>");
-  res.send({ key1: value });
+app.post("/product", (req, res, next) => {
+  console.log(req.body.title, req.body.productCount);
+  res.redirect("/add-product");
+});
+
+app.use("/", (req, res, next) => {
+  res.send("<h1>hello to node js </h1>");
 });
 
 app.listen(3000);
